@@ -1,0 +1,15 @@
+server {
+  listen   80;
+  server_name  127.0.0.1;
+	
+	if ($http_x_forwarded_proto = 'http') {
+	    return 301 https://$host$request_uri;
+	}
+
+  access_log  <%= node[:nginx][:log_dir] %>/localhost.access.log;
+
+  location / {
+    root   /var/www/nginx-default;
+    index  index.html index.htm;
+  }
+}
